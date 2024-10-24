@@ -4,6 +4,8 @@ import React from 'react';
 import AddProductScreen from '../views/add_product_screen';
 import { GluestackUIProvider } from '@gluestack-ui/themed';
 import AddProductSecondScreen from '../views/add_product_second_screen';
+import AllProductScreen from '../views/all_product_screen';
+import DetailsScreen from '../views/details_Screen';
 
 const Stack = createNativeStackNavigator();
 
@@ -14,8 +16,10 @@ export default function AppNavigation() {
         <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName='AddProduct'>
             <Stack.Screen name="AddProduct" component={AddProductScreen} />
             <Stack.Screen name="AddProductSecond" component={AddProductSecondScreen} />
+            <Stack.Screen name="AllProduct" component={AllProductScreen} />
+          <Stack.Screen name="Details" component={DetailsScreen} />
         </Stack.Navigator>
-        </NavigationContainer>
+      </NavigationContainer>
     </GluestackUIProvider>
   );
 }

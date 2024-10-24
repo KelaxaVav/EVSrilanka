@@ -1,13 +1,15 @@
 import React, { useState } from 'react'
-import { AlertCircleIcon, FormControl, FormControlError, FormControlErrorIcon, FormControlErrorText, FormControlHelper, FormControlHelperText, FormControlLabel, FormControlLabelText, Input, InputField, SafeAreaView, Select, SelectBackdrop, SelectContent, SelectDragIndicator, SelectDragIndicatorWrapper, SelectIcon, SelectInput, SelectItem, SelectPortal, SelectTrigger, Text, View } from '@gluestack-ui/themed'
+import { AlertCircleIcon, Button, ButtonText, FormControl, FormControlError, FormControlErrorIcon, FormControlErrorText, FormControlHelper, FormControlHelperText, FormControlLabel, FormControlLabelText, Input, InputField, SafeAreaView, Select, SelectBackdrop, SelectContent, SelectDragIndicator, SelectDragIndicatorWrapper, SelectIcon, SelectInput, SelectItem, SelectPortal, SelectTrigger, Text, View } from '@gluestack-ui/themed'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faAdd, faChevronLeft, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { Animated, PanResponder, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
 import { TrashIcon, ChevronDownIcon } from 'react-native-heroicons/outline'
 import { Dropdown } from 'react-native-element-dropdown';
+import { useNavigation } from '@react-navigation/native';
 
 export default function AddProductSecondScreen() {
+    const navigation = useNavigation();
     const [benefitInputFields, setBenefitInputFields] = useState(['']);
     const [additionalDetailsInputFields, setAdditionalDetailsInputFields] = useState([]);
     const [isBenefitDeleteIconVisible, setBenefitDeleteIconVisible] = useState(Array(benefitInputFields.length).fill(false));
@@ -56,19 +58,6 @@ export default function AddProductSecondScreen() {
 
     const [value, setValue] = useState(null);
     const [isFocus, setIsFocus] = useState(false);
-    const categories = [
-        { label: 'Technology', value: 'technology' },
-        { label: 'Health', value: 'health' },
-        { label: 'Finance', value: 'finance' },
-        { label: 'Education', value: 'education' },
-        { label: 'Entertainment', value: 'entertainment' },
-    ];
-
-    const options = [
-        { label: 'Option 1', value: 'option1' },
-        { label: 'Option 2', value: 'option2' },
-        { label: 'Option 3', value: 'option3' },
-    ];
 
     const data = [
         { label: 'Item 1', value: '1' },
@@ -79,21 +68,8 @@ export default function AddProductSecondScreen() {
         { label: 'Item 6', value: '6' },
         { label: 'Item 7', value: '7' },
         { label: 'Item 8', value: '8' },
+        { label: 'Item 9', value: '9' },
     ];
-
-    const [selectedCategories, setSelectedCategories] = useState([]);
-
-    const handleCategoryChange = (value) => {
-        if (selectedCategories.includes(value)) {
-            setSelectedCategories(selectedCategories.filter(item => item !== value));
-        } else {
-            setSelectedCategories([...selectedCategories, value]);
-        }
-    }
-    const [selectedValue, setSelectedValue] = useState('');
-    const handleValueChange = (value) => {
-        setSelectedValue(value);
-    };
 
     return (
         <SafeAreaView style={{ top: hp(4) }}>
@@ -350,7 +326,8 @@ export default function AddProductSecondScreen() {
                     </View>
                     <View style={{ marginTop: hp(4) }}>
                         <Dropdown
-                            style={[styles.dropdown, isFocus && { borderColor: 'blue' }]}
+                            style={{backgroundColor:"#dae1e5",borderRadius:5,height:hp(7),padding:10}}
+                            itemTextStyle={{color:'#000'}}
                             placeholderStyle={{ color: "#000", fontSize: wp(4) }}
                             selectedTextStyle={{ color: "#000", fontSize: wp(4) }}
                             inputSearchStyle={{ height: hp(5), fontSize: wp(4) }}
@@ -400,24 +377,41 @@ export default function AddProductSecondScreen() {
                             </SelectPortal>
                         </Select>
                     </FormControl> */}
-                   <Select>
-    <SelectTrigger>
-        <SelectInput placeholder="Select option" placeholderTextColor="#000" />
-        <SelectIcon marginRight={4}>
-            <ChevronDownIcon color='#000' />
-        </SelectIcon>
-    </SelectTrigger>
-    <SelectPortal>
-        <SelectBackdrop />
-        <SelectContent style={{ position: 'absolute', zIndex: 1000 }}>
-            <SelectItem label="Red" value="red" />
-            <SelectItem label="Blue" value="blue" />
-            <SelectItem label="Black" value="black" />
-            <SelectItem label="Pink" value="pink" isDisabled />
-            <SelectItem label="Green" value="green" />
-        </SelectContent>
-    </SelectPortal>
-</Select>
+                    {/* <Select>
+                        <SelectTrigger>
+                            <SelectInput placeholder="Select option" placeholderTextColor="#000" />
+                            <SelectIcon marginRight={4}>
+                                <ChevronDownIcon color='#000' />
+                            </SelectIcon>
+                        </SelectTrigger>
+                        <SelectPortal>
+                            <SelectBackdrop />
+                            <SelectContent style={{ position: 'absolute', zIndex: 1000 }}>
+                                <SelectItem label="Red" value="red" />
+                                <SelectItem label="Blue" value="blue" />
+                                <SelectItem label="Black" value="black" />
+                                <SelectItem label="Pink" value="pink" isDisabled />
+                                <SelectItem label="Green" value="green" />
+                            </SelectContent>
+                        </SelectPortal>
+                    </Select> */}
+
+
+                    <View style={{ marginTop: hp(5) }}>
+                        <Button
+                            onPress={() => navigation.navigate('AllProduct')}
+                            style={{
+                                backgroundColor: '#68a2e3',
+                                marginTop: 20,
+                                padding: hp(2),
+                                borderRadius: wp(2),
+                                height: hp(7),
+                                justifyContent: 'center',
+                                alignItems: 'center'
+                            }}>
+                            <ButtonText style={{ textAlign: 'center', fontSize: wp(4.5), color: '#fff' }}>Next</ButtonText>
+                        </Button>
+                    </View>
 
 
 
@@ -427,27 +421,3 @@ export default function AddProductSecondScreen() {
         </SafeAreaView>
     )
 }
-
-const styles = StyleSheet.create({
-    container: {
-        backgroundColor: 'white',
-        padding: 16,
-    },
-    dropdown: {
-        height: 50,
-        borderColor: 'gray',
-        borderWidth: 0.5,
-        borderRadius: 8,
-        paddingHorizontal: 8,
-        color: '#000'
-    },
-    label: {
-        position: 'absolute',
-        backgroundColor: 'white',
-        left: 22,
-        top: 8,
-        zIndex: 999,
-        paddingHorizontal: 8,
-        fontSize: 14,
-    },
-});

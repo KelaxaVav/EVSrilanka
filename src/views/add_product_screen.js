@@ -137,11 +137,11 @@ export default function AddProductScreen() {
                                     marginTop: 20,
                                     padding: hp(2),
                                     borderRadius: wp(2),
-                                    height: hp(8),
+                                    height: hp(7),
                                     justifyContent: 'center',
                                     alignItems: 'center'
                                 }}>
-                                <ButtonText style={{ textAlign: 'center', fontSize: wp(5), color: '#fff' }}>Next</ButtonText>
+                                <ButtonText style={{ textAlign: 'center', fontSize: wp(4.5), color: '#fff' }}>Next</ButtonText>
                             </Button>
                         </View>
 
