@@ -1,14 +1,66 @@
 import React, { useState } from 'react'
-import { Button, ButtonText, Center, Input, InputField, SafeAreaView, Text, Textarea, TextareaInput, View } from '@gluestack-ui/themed'
+import { Button, ButtonText, Center, Image, Input, InputField, SafeAreaView, Text, Textarea, TextareaInput, View } from '@gluestack-ui/themed'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faAdd, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
-import { ScrollView } from 'react-native';
+import { Alert, ScrollView, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { launchImageLibrary } from 'react-native-image-picker';
+import { useDispatch } from 'react-redux';
+import { Controller, useForm } from 'react-hook-form';
 
 export default function AddProductScreen() {
     const [text, setText] = useState('');
     const navigation = useNavigation();
+    // const [images, setImages] = useState([]);
+    const dispatch = useDispatch();
+    const { register, handleSubmit, setValue, errors, control } = useForm();
+    const [images, setImages] = useState(Array(5).fill(null));
+
+    const handleImageUpload = async (index) => {
+        const options = {
+            mediaType: 'photo',
+            includeBase64: false,
+            maxWidth: 800,
+            maxHeight: 800,
+        };
+
+        launchImageLibrary(options, (response) => {
+            if (response.didCancel) {
+                console.log('User cancelled image picker');
+            } else if (response.error) {
+                console.log('ImagePicker Error: ', response.error);
+            } else if (response.assets) {
+                const newImages = [...images];
+                newImages[index] = response.assets[0].uri;
+                setImages(newImages);
+            }
+        });
+    };
+
+    const handleNext = (data) => {
+        console.log(':daytata', data);
+        console.log(':images', images);
+
+        if (!data.name || !data.description) {
+            Alert.alert('Validation Error', 'Please fill in all fields and upload at least one image.');
+            return;
+        }
+        if (images.some(image => image === null)) {
+            Alert.alert('Validation Error', 'Please upload all 5 images.');
+            return;
+        }
+
+        const productData = {
+            name: text,
+            images,
+        };
+
+        dispatch({ type: 'SET_PRODUCT', payload: productData });
+
+        navigation.navigate('AddProductSecond');
+    };
+
     return (
         <SafeAreaView style={{ top: hp(1) }} >
             <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 50 }}>
@@ -37,45 +89,64 @@ export default function AddProductScreen() {
                     </View>
 
                     <View style={{ marginTop: hp(5) }}>
-                        <Input
-                            variant="outline"
-                            size="md"
-                            isDisabled={false}
-                            isInvalid={false}
-                            isReadOnly={false}
-                        >
-                            <InputField
-                                placeholder="Name"
-                                type="text"
-                                color="#000"
-                                placeholderTextColor="#888"
-                                padding={10}
-                                backgroundColor="#dae1e5"
-                                borderColor="transparent"
-                                borderWidth={0}
-                                borderRadius={10}
-                                height={hp(7)}
-                            />
-                        </Input>
-
-                        <View style={{ marginTop: hp(5) }}>
-                            <View style={{ position: 'relative' }}>
-                                <Textarea>
-                                    <TextareaInput
-                                        placeholder="Description"
+                        <Controller
+                            control={control}
+                            render={({ field: { onChange, onBlur, value } }) => (
+                                <Input
+                                    variant="outline"
+                                    size="md"
+                                    isDisabled={false}
+                                    isInvalid={false}
+                                    isReadOnly={false}
+                                >
+                                    <InputField
+                                        placeholder="Name"
+                                        type="text"
+                                        color="#000"
                                         placeholderTextColor="#888"
-                                        value={text}
-                                        onChangeText={(value) => setText(value)}
-                                        height={hp(15)}
+                                        padding={10}
                                         backgroundColor="#dae1e5"
                                         borderColor="transparent"
                                         borderWidth={0}
                                         borderRadius={10}
-                                        padding={10}
-                                        paddingTop={15}
-                                        style={{ textAlignVertical: 'top' }}
+                                        height={hp(7)}
+                                        onBlur={onBlur}
+                                        onChangeText={onChange}
+                                        value={value}
                                     />
-                                </Textarea>
+                                </Input>
+                            )}
+                            name="name"
+                            rules={{ required: true }}
+                        />
+
+
+                        <View style={{ marginTop: hp(5) }}>
+                            <View style={{ position: 'relative' }}>
+
+                                <Controller
+                                    control={control}
+                                    name="description"
+                                    rules={{ required: true }}
+                                    render={({ field: { onChange, onBlur, value } }) => (
+                                        <Textarea>
+                                            <TextareaInput
+                                                placeholder="Description"
+                                                placeholderTextColor="#888"
+                                                value={value}
+                                                onChangeText={onChange}
+                                                height={hp(15)}
+                                                backgroundColor="#dae1e5"
+                                                borderColor="transparent"
+                                                borderWidth={0}
+                                                borderRadius={10}
+                                                padding={10}
+                                                paddingTop={15}
+                                                style={{ textAlignVertical: 'top', color: '#000' }}
+                                            />
+                                        </Textarea>
+                                    )}
+                                />
                                 <Text style={{ position: 'absolute', bottom: hp(2), right: wp(5), color: "#888", fontSize: wp(3) }}>
                                     {text.length} / 2000
                                 </Text>
@@ -98,16 +169,27 @@ export default function AddProductScreen() {
                                 style={{ marginTop: hp(2), paddingVertical: hp(1) }}
                             >
                                 {Array.from({ length: 5 }).map((_, index) => (
-                                    <View key={index} style={{ width: wp(20), height: wp(20), backgroundColor: '#dae1e5', borderRadius: 10, justifyContent: 'center', alignItems: 'center', marginRight: wp(2) }}>
-                                        <FontAwesomeIcon icon={faAdd} color="#68a2e3" size={24} />
-                                    </View>
+                                    <TouchableOpacity key={index} onPress={() => handleImageUpload(index)}>
+                                        <View style={{ width: wp(20), height: wp(20), backgroundColor: '#dae1e5', borderRadius: 10, justifyContent: 'center', alignItems: 'center', marginRight: wp(2) }}>
+                                            {images[index] ? (
+                                                <Image
+                                                    source={{ uri: images[index] }}
+                                                    style={{ width: '100%', height: '100%', borderRadius: 10 }}
+                                                    alt={`Uploaded image ${index + 1}`}
+                                                />
+                                            ) : (
+                                                <FontAwesomeIcon icon={faAdd} color="#68a2e3" size={24} />
+                                            )}
+                                        </View>
+                                    </TouchableOpacity>
                                 ))}
                             </ScrollView>
                         </View>
 
+
                         <View style={{ marginTop: hp(5) }}>
                             <Text style={{ color: '#000', fontSize: wp(5), fontWeight: '500' }}>Price</Text>
-                            <Input
+                            {/* <Input
                                 variant="outline"
                                 size="md"
                                 isDisabled={false}
@@ -127,11 +209,40 @@ export default function AddProductScreen() {
                                     borderRadius={10}
                                     height={hp(7)}
                                 />
-                            </Input>
+                            </Input> */}
+                            <Controller
+                                control={control}
+                                render={({ field: { onChange, onBlur, value } }) => (
+                                    <Input
+                                        variant="outline"
+                                        size="md"
+                                        isDisabled={false}
+                                        isInvalid={false}
+                                        isReadOnly={false}
+                                        style={{ marginTop: hp(2) }}
+                                    >
+                                        <InputField
+                                            placeholder="$0.00"
+                                            type="text"
+                                            color="#000"
+                                            placeholderTextColor="#888"
+                                            padding={10}
+                                            backgroundColor="#dae1e5"
+                                            borderColor="transparent"
+                                            borderWidth={0}
+                                            borderRadius={10}
+                                            height={hp(7)}
+                                        />
+                                    </Input>
+                                )}
+                                name="price"
+                                rules={{ required: true }}
+                            />
                         </View>
                         <View style={{ marginTop: hp(5) }}>
                             <Button
-                                onPress={() => navigation.navigate('AddProductSecond')}
+                                onPress={handleSubmit(handleNext)}
+                                // onPress={() => navigation.navigate('AddProductSecond')}
                                 style={{
                                     backgroundColor: '#68a2e3',
                                     marginTop: 20,
