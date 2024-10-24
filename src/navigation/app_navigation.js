@@ -12,11 +12,11 @@ const Stack = createNativeStackNavigator();
 export default function AppNavigation() {
   return (
     <GluestackUIProvider>
-        <NavigationContainer>
-        <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName='AddProduct'>
-            <Stack.Screen name="AddProduct" component={AddProductScreen} />
-            <Stack.Screen name="AddProductSecond" component={AddProductSecondScreen} />
-            <Stack.Screen name="AllProduct" component={AllProductScreen} />
+      <NavigationContainer>
+        <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName='AllProduct'>
+          <Stack.Screen name="AddProduct" component={AddProductScreen} />
+          <Stack.Screen name="AddProductSecond" component={AddProductSecondScreen} />
+          <Stack.Screen name="AllProduct" component={AllProductScreen} />
           <Stack.Screen name="Details" component={DetailsScreen} />
         </Stack.Navigator>
       </NavigationContainer>

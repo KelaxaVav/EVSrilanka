@@ -5,7 +5,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faAdd, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { Alert, ScrollView, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { launchImageLibrary } from 'react-native-image-picker';
 import { useDispatch } from 'react-redux';
 import { Controller, useForm } from 'react-hook-form';
 
@@ -25,17 +24,17 @@ export default function AddProductScreen() {
             maxHeight: 800,
         };
 
-        launchImageLibrary(options, (response) => {
-            if (response.didCancel) {
-                console.log('User cancelled image picker');
-            } else if (response.error) {
-                console.log('ImagePicker Error: ', response.error);
-            } else if (response.assets) {
-                const newImages = [...images];
-                newImages[index] = response.assets[0].uri;
-                setImages(newImages);
-            }
-        });
+        // launchImageLibrary(options, (response) => {
+        //     if (response.didCancel) {
+        //         console.log('User cancelled image picker');
+        //     } else if (response.error) {
+        //         console.log('ImagePicker Error: ', response.error);
+        //     } else if (response.assets) {
+        //         const newImages = [...images];
+        //         newImages[index] = response.assets[0].uri;
+        //         setImages(newImages);
+        //     }
+        // });
     };
 
     const handleNext = (data) => {

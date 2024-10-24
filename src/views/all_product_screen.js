@@ -42,7 +42,7 @@ export default function AddProductScreen() {
     ];
 
     return (
-        <SafeAreaView style={{ top: hp(4) }}>
+        <SafeAreaView style={{ top: hp(2) }}>
             <ScrollView>
                 <View style={{ paddingLeft: wp(5), paddingRight: wp(5) }}>
                     <TouchableOpacity onPress={() => navigation.navigate('AddProduct')}>
@@ -71,7 +71,7 @@ export default function AddProductScreen() {
 
                     </TouchableOpacity>
                 </View>
-                <View style={{marginTop:5}}>
+                <View style={{ marginTop: 5 }}>
                     {cardData.map((item, index) => (
                         <TouchableOpacity
                             key={index}
@@ -79,15 +79,16 @@ export default function AddProductScreen() {
                         >
                             <View style={{ padding: 15 }}>
                                 <View style={{
-                                    width: '100%',
-                                    height: 300,
+                                    width: wp(92),
+                                    height: hp(50)
+                                    // height: 300,
                                     // marginBottom: 20,
                                     // position: 'relative',
                                 }}>
                                     <Image
                                         style={{
-                                            width: '100%',
-                                            height: '100%',
+                                            width: wp(92),
+                                            height: hp(50),
                                             borderRadius: 5,
                                         }}
                                         source={item.image}
@@ -96,18 +97,18 @@ export default function AddProductScreen() {
                                     />
                                     <Box
                                         position="absolute"
-                                        bottom={10}
-                                        right={10}
+                                        bottom={wp(5)}
+                                        right={wp(3)}
                                         backgroundColor="#fff"
-                                        padding={10}
+                                        padding={wp(3)}
                                         borderRadius={5}
                                     >
-                                        <Text fontWeight="bold" fontSize={18} color="#000">
+                                        <Text fontWeight="bold" fontSize={wp(5)} color="#000">
                                             {item.title}
                                         </Text>
                                     </Box>
                                 </View>
-                                <Text fontWeight="bold" fontSize={18} color="#000" top={8}>
+                                <Text fontWeight="bold" fontSize={wp(5)} color="#000" top={wp(2)}>
                                     {item.description}
                                 </Text>
                             </View>

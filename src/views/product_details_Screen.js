@@ -29,53 +29,53 @@ const DetailsScreen = () => {
                             />
                         </View>
                     </SwiperFlatList>
-
+                </View>
+                <View>
                     <View>
                         <View style={{
                             flexDirection: 'row',
-                            top: 10
+                            top: hp(2),
                         }}>
                             <Image
                                 source={require('../../assets/images/frock2.jpg')}
                                 style={styles.circleImage}
                                 resizeMode="cover"
                             />
-                            <Text style={{ color: '#000', left: 20, fontSize: 20, top: 8, fontWeight: 'bold' }}>Kopana Panchan</Text>
+                            <Text style={{ color: '#000', left: hp(3), fontSize: wp(6), top: hp(1), fontWeight: 'bold' }}>Kopana Panchan</Text>
                         </View>
                     </View>
 
-                    <View style={{ padding: 10, top: 10 }}>
+                    <View style={{ paddingHorizontal: wp(4), paddingVertical: hp(4) }}>
                         <Box
                             borderWidth={1}
                             borderColor="gray"
                             borderRadius="md"
                             bg="white"
-                            width={340}
-                            height={260}
+                            height={hp(35)}
                         >
-                            <View style={{ padding: 10 }}>
+                            <View style={{ paddingHorizontal: wp(4), paddingVertical: hp(4) }}>
 
 
-                                <Text style={{ color: '#000', fontSize: 23, fontWeight: 'bold' }}>Wedding photographer London</Text>
+                                <Text style={{ color: '#000', bottom: hp(3), fontSize: wp(5), fontWeight: '500' }}>Wedding photographer in London</Text>
                                 <Box
-                                    top={15}
+                                    bottom={hp(1)}
                                     backgroundColor="#000"
-                                    padding={10}
                                     borderRadius={5}
-                                    width={100}
+                                    width={wp(34)}
+                                    height={wp(10)}
                                 >
-                                    <Text fontWeight="bold" fontSize={18} color="#fff">
-                                        $15000.00
+                                    <Text fontWeight="400" fontSize={wp(5)} color="#fff" textAlign='center' top={hp(1)}>
+                                        $1500.00
                                     </Text>
                                 </Box>
-                                <View style={{ top: 15 }}>
-                                    <Text style={{ color: '#000', fontSize: 20, }}>I have worked with severval lovely couples getting married in the past, and i always put my heart....</Text>
+                                <View>
+                                    <Text style={{ color: '#000', fontSize: wp(5), bottom: hp(0.5) }}>I have worked with severval lovely couples getting married in the past, and i always put my heart....</Text>
                                     <View
                                         style={{
-                                            top: 10,
+                                            top: hp(1),
                                             backgroundColor: "gray",
-                                            width: 320,
-                                            borderWidth: 1,
+                                            width: wp(85),
+                                            borderWidth: 0.5,
                                             borderColor: "gray",
                                         }}
                                     ></View>
@@ -83,11 +83,11 @@ const DetailsScreen = () => {
                                     <View style={{
                                         flexDirection: 'row',
                                         justifyContent: 'space-between',
-                                        marginTop: 25,
+                                        marginTop: hp(3),
                                     }}>
                                         <Text style={{
                                             color: '#000',
-                                            fontSize: 20,
+                                            fontSize: wp(5),
 
                                         }}>
                                             Aerial drone footage
@@ -95,7 +95,7 @@ const DetailsScreen = () => {
 
                                         <Text style={{
                                             color: '#000',
-                                            fontSize: 20,
+                                            fontSize: wp(5),
                                             fontWeight: 'bold',
 
                                         }}>
@@ -104,10 +104,10 @@ const DetailsScreen = () => {
                                     </View>
                                     <View
                                         style={{
-                                            top: 10,
+                                            top: hp(2),
                                             backgroundColor: "gray",
-                                            width: 320,
-                                            borderWidth: 1,
+                                            width: wp(85),
+                                            borderWidth: 0.5,
                                             borderColor: "gray",
                                         }}
                                     ></View>
@@ -115,17 +115,18 @@ const DetailsScreen = () => {
                                     <View style={{
                                         flexDirection: 'row',
                                         justifyContent: 'space-between',
-                                        marginTop: 25,
+                                        marginTop: hp(4),
                                     }}>
                                         <Text style={{
                                             color: '#000',
-                                            fontSize: 20,
+                                            fontSize: wp(5),
+
                                         }}>
                                             Express turnaround time
                                         </Text>
                                         <Text style={{
                                             color: '#000',
-                                            fontSize: 20,
+                                            fontSize: wp(5),
                                             fontWeight: 'bold',
                                         }}>
                                             14 days
@@ -138,41 +139,39 @@ const DetailsScreen = () => {
                     </View>
 
 
-                    <Text style={{ color: '#000', padding: 10, top: 10, fontSize: 23, fontWeight: 'bold' }}>Benefits</Text>
-                    <View style={{ padding: 10, }}>
+                    <Text style={{ color: '#000', paddingVertical: hp(2), paddingHorizontal: hp(2), bottom: hp(3), fontSize: hp(3), fontWeight: 'bold' }}>Benefits</Text>
+                    <View style={{ paddingHorizontal: wp(4), paddingVertical: hp(4) }}>
                         <Box
-                            top={10}
+                            bottom={hp(6)}
                             borderWidth={1}
                             borderColor="gray"
                             borderRadius="md"
                             bg="white"
-                            width={340}
-                            height={260}
+                            height={hp(30)}
                         >
-                            <View style={{ top: 15, padding: 10 }}>
-                                <Text style={{ color: '#000', fontSize: 20, }}>I have worked with severval lovely couples getting married in the past, and i always put my heart....</Text>
-                                <Text style={{ color: '#000', top: 10, fontSize: 20, }}>I have worked with severval lovely couples getting married in the past, and i always put my heart....</Text>
-                                <Text style={{ color: '#000', fontSize: 20, top: 25, }}>I have worked with severval lovely couples getting married in the past, and i always put my heart....</Text>
+                            <View style={{ top: hp(1), padding: hp(1) }}>
+                                <Text style={{ color: '#000', fontSize: wp(5), }}>I have worked with severval lovely couples getting married in the past, and i always put my heart....</Text>
+                                <Text style={{ color: '#000', top: hp(1), fontSize: wp(5), }}>I have worked with severval lovely couples getting married in the past, and i always put my heart....</Text>
+                                <Text style={{ color: '#000', fontSize: wp(5), top: hp(2), }}>I have worked with severval lovely couples getting married in the past, and i always put my heart....</Text>
                             </View>
                         </Box>
 
                         <View style={{
-                            top: 10,
-                            padding: 20,
+                            bottom: hp(2),
                             alignItems: 'center',
                         }}>
                             <Button
                                 onPress={() => console.log('Add Button Pressed')}
                                 variant="solid"
                                 style={{
-                                    width: 340,
-                                    height: 50,
+                                    width: wp(95),
+                                    height: hp(6),
                                     borderRadius: 5,
-                                    backgroundColor: 'lightblue',
+                                    backgroundColor: '#68a2e3',
                                     color: 'white',
                                 }}
                             >
-                                <Text style={{ color: 'white', fontWeight: 'bold', textAlign: 'center', fontSize: 25, top: 10 }}>Buy for $299</Text>
+                                <Text style={{ color: 'white', fontWeight: 'bold', textAlign: 'center', fontSize: wp(7), top: hp(1) }}>Buy for $299</Text>
 
                             </Button>
                         </View>
@@ -181,6 +180,7 @@ const DetailsScreen = () => {
 
                     </View>
                 </View>
+
             </ScrollView>
         </View>
     );
@@ -196,9 +196,10 @@ const styles = StyleSheet.create({
         height: 'auto',
     },
     child: {
-        width: 360,
-        height: 300,
+        width: wp(100),
+        height: hp(40),
         alignItems: 'center',
+
     },
     image: {
         // top: 10,
