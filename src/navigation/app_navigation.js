@@ -5,7 +5,7 @@ import AddProductScreen from '../views/add_product_screen';
 import { GluestackUIProvider } from '@gluestack-ui/themed';
 import AddProductSecondScreen from '../views/add_product_second_screen';
 import AllProductScreen from '../views/all_product_screen';
-import DetailsScreen from '../views/details_Screen';
+import DetailsScreen from '../views/product_details_Screen';
 
 const Stack = createNativeStackNavigator();
 

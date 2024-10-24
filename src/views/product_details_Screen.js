@@ -6,6 +6,7 @@ import { AddIcon, Box, Button, Image, ScrollView, Text, View } from '@gluestack-
 import React from 'react';
 import { Dimensions, StyleSheet } from 'react-native';
 import { SwiperFlatList } from 'react-native-swiper-flatlist';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 const DetailsScreen = () => {
     return (

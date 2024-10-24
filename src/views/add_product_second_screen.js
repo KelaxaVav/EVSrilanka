@@ -75,29 +75,32 @@ export default function AddProductSecondScreen() {
         <SafeAreaView style={{ top: hp(4) }}>
             <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 50 }}>
                 <View style={{ paddingLeft: wp(5), paddingRight: wp(5) }}>
-                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                        <View style={{
-                            padding: wp(2),
-                            borderRadius: 50,
-                            backgroundColor: '#dae1e5',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            aspectRatio: 1
-                        }}>
-                            <FontAwesomeIcon icon={faChevronLeft} color="#000" size={wp(5)} />
+                    <TouchableOpacity onPress={() => navigation.navigate('AddProduct')}>
+                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                            <View style={{
+                                padding: wp(2),
+                                borderRadius: 50,
+                                backgroundColor: '#dae1e5',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                aspectRatio: 1
+                            }}>
+                                <FontAwesomeIcon icon={faChevronLeft} color="#000" size={wp(5)} />
+                            </View>
+
+                            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                                <Text style={{ color: '#000', fontSize: wp(5), textAlign: 'center' }}>Additional</Text>
+                                <Text style={{ color: '#000', fontSize: wp(5), textAlign: 'center' }}>Details</Text>
+                            </View>
+
+                            <View style={{
+                                padding: wp(4),
+                                borderRadius: 50,
+                                aspectRatio: 1,
+                            }} />
                         </View>
 
-                        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                            <Text style={{ color: '#000', fontSize: wp(5), textAlign: 'center' }}>Additional</Text>
-                            <Text style={{ color: '#000', fontSize: wp(5), textAlign: 'center' }}>Details</Text>
-                        </View>
-
-                        <View style={{
-                            padding: wp(4),
-                            borderRadius: 50,
-                            aspectRatio: 1,
-                        }} />
-                    </View>
+                    </TouchableOpacity>
 
 
                     <View style={{ marginTop: hp(5) }}>
@@ -326,8 +329,8 @@ export default function AddProductSecondScreen() {
                     </View>
                     <View style={{ marginTop: hp(4) }}>
                         <Dropdown
-                            style={{backgroundColor:"#dae1e5",borderRadius:5,height:hp(7),padding:10}}
-                            itemTextStyle={{color:'#000'}}
+                            style={{ backgroundColor: "#dae1e5", borderRadius: 5, height: hp(7), padding: 10 }}
+                            itemTextStyle={{ color: '#000' }}
                             placeholderStyle={{ color: "#000", fontSize: wp(4) }}
                             selectedTextStyle={{ color: "#000", fontSize: wp(4) }}
                             inputSearchStyle={{ height: hp(5), fontSize: wp(4) }}
