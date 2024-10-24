@@ -1,219 +1,136 @@
 
 
 
-import { AddIcon, Box, Button, Image, ScrollView, Text, View } from '@gluestack-ui/themed';
-
+import { Box, Button, ButtonText, Image, ScrollView, Text, View } from '@gluestack-ui/themed';
 import React from 'react';
-import { Dimensions, StyleSheet } from 'react-native';
+import { Dimensions, TouchableOpacity } from 'react-native';
 import { SwiperFlatList } from 'react-native-swiper-flatlist';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { formatCurrency, formatCurrencySingle } from '../utils/helpers';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 
-const DetailsScreen = () => {
+export default function ProductDetailsScreen() {
+    const route = useRoute();
+    const navigation = useNavigation();
+    const { item } = route.params;
+    const images = item.images || [];
+    const { width } = Dimensions.get('window');
+    const additional = item.additional;
+    const benefits = item.benefits;
     return (
-        <View style={styles.container}>
+        <View flex= {1} backgroundColor= 'white'>
             <ScrollView>
-                <View style={styles.swiperContainer}>
-                    <SwiperFlatList autoplay autoplayDelay={2} autoplayLoop index={2}>
-                        <View style={styles.child}>
-                            <Image
-                                source={require('../../assets/images/frock1.webp')}
-                                style={styles.image}
-                                resizeMode="cover"
-                            />
-                        </View>
-                        <View style={styles.child}>
-                            <Image
-                                source={require('../../assets/images/frock2.jpg')}
-                                style={styles.image}
-                                resizeMode="cover"
-                            />
-                        </View>
-                    </SwiperFlatList>
-
-                    <View>
-                        <View style={{
-                            flexDirection: 'row',
-                            top: 10
-                        }}>
-                            <Image
-                                source={require('../../assets/images/frock2.jpg')}
-                                style={styles.circleImage}
-                                resizeMode="cover"
-                            />
-                            <Text style={{ color: '#000', left: 20, fontSize: 20, top: 8, fontWeight: 'bold' }}>Kopana Panchan</Text>
-                        </View>
-                    </View>
-
-                    <View style={{ padding: 10, top: 10 }}>
-                        <Box
-                            borderWidth={1}
-                            borderColor="gray"
-                            borderRadius="md"
-                            bg="white"
-                            width={340}
-                            height={260}
+                <View>
+                    <View flex={1} position='relative'>
+                        <TouchableOpacity
+                            onPress={() => { () => navigation.navigate('AllProduct') }}
+                            style={{
+                                position: 'absolute',
+                                top: hp(2),
+                                left: wp(3),
+                                padding: wp(2),
+                                backgroundColor: '#dae1e5',
+                                borderRadius: wp(10),
+                                zIndex: 1,
+                            }}
                         >
-                            <View style={{ padding: 10 }}>
+                            <FontAwesomeIcon icon={faChevronLeft} color="#000" size={wp(7)} />
+                        </TouchableOpacity>
 
+                        <SwiperFlatList
+                            autoplay
+                            autoplayDelay={2}
+                            autoplayLoop
+                            index={0}
+                        >
+                            {images.map((imageUri, index) => (
+                                <View key={index} alignItems='center' justifyContent='center' width={width} height={width * 0.8}>
+                                    <Image
+                                        width={width}
+                                        height={width * 0.8}
+                                        source={{ uri: imageUri }}
+                                        alt={`Uploaded image ${index + 1}`}
+                                        resizeMode="cover"
+                                    />
+                                </View>
+                            ))}
+                        </SwiperFlatList>
+                    </View>
+                    <View marginHorizontal={wp(4)} marginVertical={hp(4)}>
+                        <View flexDirection='row' alignItems='center'>
+                            <Image
+                                source={require('../../assets/images/camera.jpg')}
+                                width={wp(15)} height={wp(15)} borderRadius={wp(10)} overflow='hidden'
+                                resizeMode="cover"
+                                alt={`Uploaded image`}
+                            />
+                            <Text color='#000' fontSize={wp(5)} marginLeft={wp(2)} fontWeight={500}>Kelaxa</Text>
+                        </View>
 
-                                <Text style={{ color: '#000', fontSize: 23, fontWeight: 'bold' }}>Wedding photographer London</Text>
-                                <Box
-                                    top={15}
-                                    backgroundColor="#000"
-                                    padding={10}
-                                    borderRadius={5}
-                                    width={100}
-                                >
-                                    <Text fontWeight="bold" fontSize={18} color="#fff">
-                                        $15000.00
-                                    </Text>
-                                </Box>
-                                <View style={{ top: 15 }}>
-                                    <Text style={{ color: '#000', fontSize: 20, }}>I have worked with severval lovely couples getting married in the past, and i always put my heart....</Text>
-                                    <View
-                                        style={{
-                                            top: 10,
-                                            backgroundColor: "gray",
-                                            width: 320,
-                                            borderWidth: 1,
-                                            borderColor: "gray",
-                                        }}
-                                    ></View>
-
-                                    <View style={{
-                                        flexDirection: 'row',
-                                        justifyContent: 'space-between',
-                                        marginTop: 25,
-                                    }}>
-                                        <Text style={{
-                                            color: '#000',
-                                            fontSize: 20,
-
-                                        }}>
-                                            Aerial drone footage
-                                        </Text>
-
-                                        <Text style={{
-                                            color: '#000',
-                                            fontSize: 20,
-                                            fontWeight: 'bold',
-
-                                        }}>
-                                            YES
-                                        </Text>
+                        <View marginTop={hp(3)}>
+                            <Box borderWidth={1}
+                                borderColor="#ccc"
+                                borderRadius={wp(2)}
+                                backgroundColor='#fff'
+                            >
+                                <View paddingVertical={hp(2)} paddingHorizontal={wp(4)}>
+                                    <Text color='#000' fontSize={wp(5)} fontWeight={700} marginBottom={hp(2)}>{item.name}</Text>
+                                    <View backgroundColor='#000' borderRadius={wp(1)} paddingHorizontal={wp(8)} paddingVertical={hp(1)} alignSelf='flex-start' marginBottom={hp(1)}>
+                                        <Text fontWeight={400} fontSize={wp(5)} color="#fff"> {formatCurrency(item.price)}</Text>
                                     </View>
-                                    <View
-                                        style={{
-                                            top: 10,
-                                            backgroundColor: "gray",
-                                            width: 320,
-                                            borderWidth: 1,
-                                            borderColor: "gray",
-                                        }}
-                                    ></View>
-
-                                    <View style={{
-                                        flexDirection: 'row',
-                                        justifyContent: 'space-between',
-                                        marginTop: 25,
-                                    }}>
-                                        <Text style={{
-                                            color: '#000',
-                                            fontSize: 20,
-                                        }}>
-                                            Express turnaround time
-                                        </Text>
-                                        <Text style={{
-                                            color: '#000',
-                                            fontSize: 20,
-                                            fontWeight: 'bold',
-                                        }}>
-                                            14 days
-                                        </Text>
-                                    </View>
+                                    <Text fontWeight={400} color='#000' fontSize={wp(4.5)}>{item.description}</Text>
 
                                 </View>
+                                <View height={hp(0.1)} backgroundColor='#ccc' width="100%" />
+
+                                {additional.length > 0 && (
+                                    <View>
+                                        {additional.map((detail, index) => (
+                                            <View key={index}>
+                                                <View flexDirection='row' justifyContent='space-between' paddingVertical={hp(2)} paddingHorizontal={wp(4)}>
+                                                    <Text color='#000' fontWeight={400} fontSize={wp(5)}>{detail.attribute}</Text>
+                                                    <Text color='#000' fontWeight={600} fontSize={wp(5)}>{detail.value}</Text>
+                                                </View>
+                                                {index < additional.length - 1 && (
+                                                    <View height={hp(0.1)} backgroundColor='#ccc' marginVertical={hp(1)} />
+                                                )}
+                                            </View>
+                                        ))}
+                                    </View>
+                                )}
+
+                            </Box>
+                            <View marginTop={hp(3)}>
+                                <Text color='#000' fontWeight={600} fontSize={wp(6)} marginBottom={hp(2)}>Benefits</Text>
+                                <Box borderWidth={1}
+                                    borderColor="#ccc"
+                                    borderRadius={wp(2)}
+                                    backgroundColor='#fff'
+                                >
+                                    <View paddingVertical={hp(2)} paddingHorizontal={wp(4)}>
+                                        {benefits.map((benefit, index) => (
+                                            <Text key={`benefit-${index}`} color='#000' fontSize={wp(4.5)} fontWeight={400} marginBottom={hp(1)}>{benefit}</Text>
+                                        ))}
+                                    </View>
+                                </Box>
                             </View>
-                        </Box>
-                    </View>
-
-
-                    <Text style={{ color: '#000', padding: 10, top: 10, fontSize: 23, fontWeight: 'bold' }}>Benefits</Text>
-                    <View style={{ padding: 10, }}>
-                        <Box
-                            top={10}
-                            borderWidth={1}
-                            borderColor="gray"
-                            borderRadius="md"
-                            bg="white"
-                            width={340}
-                            height={260}
-                        >
-                            <View style={{ top: 15, padding: 10 }}>
-                                <Text style={{ color: '#000', fontSize: 20, }}>I have worked with severval lovely couples getting married in the past, and i always put my heart....</Text>
-                                <Text style={{ color: '#000', top: 10, fontSize: 20, }}>I have worked with severval lovely couples getting married in the past, and i always put my heart....</Text>
-                                <Text style={{ color: '#000', fontSize: 20, top: 25, }}>I have worked with severval lovely couples getting married in the past, and i always put my heart....</Text>
+                            <View marginTop={hp(5)}>
+                                <Button
+                                    backgroundColor='#68a2e3'
+                                    borderRadius={wp(2)}
+                                    height={hp(7)}
+                                    justifyContent='center'
+                                    alignItems='center'
+                                >
+                                    <ButtonText textAlign='center' fontSize={wp(4.5)} color='#fff'> {`Buy for ${formatCurrencySingle(item.price)}`} </ButtonText>
+                                </Button>
                             </View>
-                        </Box>
-
-                        <View style={{
-                            top: 10,
-                            padding: 20,
-                            alignItems: 'center',
-                        }}>
-                            <Button
-                                onPress={() => console.log('Add Button Pressed')}
-                                variant="solid"
-                                style={{
-                                    width: 340,
-                                    height: 50,
-                                    borderRadius: 5,
-                                    backgroundColor: 'lightblue',
-                                    color: 'white',
-                                }}
-                            >
-                                <Text style={{ color: 'white', fontWeight: 'bold', textAlign: 'center', fontSize: 25, top: 10 }}>Buy for $299</Text>
-
-                            </Button>
                         </View>
-
-
-
                     </View>
                 </View>
             </ScrollView>
         </View>
     );
 };
-
-// const { width, height } = Dimensions.get('window');
-
-const styles = StyleSheet.create({
-    container: { flex: 1, backgroundColor: 'white' },
-    swiperContainer: {
-        // height: height / 2,
-        width: '100%',
-        height: 'auto',
-    },
-    child: {
-        width: 360,
-        height: 300,
-        alignItems: 'center',
-    },
-    image: {
-        // top: 10,
-        width: '100%',
-        height: '95%',
-        // borderRadius: 10,
-    },
-    circleImage: {
-        bottom: 10,
-        width: 50,
-        height: 50,
-        borderRadius: 40,
-        overflow: 'hidden',
-        left: 10
-    },
-});
-
-export default DetailsScreen;

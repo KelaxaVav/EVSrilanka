@@ -1,18 +1,23 @@
-import { createStore } from 'redux';
+import { configureStore } from '@reduxjs/toolkit';
+import { persistStore, persistReducer } from 'redux-persist';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import productSlice from './slice/product'
 
-const initialState = {
-    product: {},
+const persistConfig = {
+    key: 'root',
+    storage: AsyncStorage,
 };
 
-const reducer = (state = initialState, action) => {
-    switch (action.type) {
-        case 'SET_PRODUCT':
-            return { ...state, product: action.payload };
-        default:
-            return state;
-    }
-};
+const persistedReducer = persistReducer(persistConfig, productSlice);
 
-const store = createStore(reducer);
+export const store = configureStore({
+    reducer: {
+        product: persistedReducer,
+    },
+    middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware({
+            serializableCheck: false,
+        }),
+});
 
-export default store;
+export const persistor = persistStore(store);
