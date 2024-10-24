@@ -39,25 +39,25 @@ export default function AddProductScreen() {
     ];
 
     return (
-        <SafeAreaView style={{ flex: 1 }}>
+        <SafeAreaView style={{ flex: 1, }}>
             <ScrollView>
                 {cardData.map((item, index) => (
                     <TouchableOpacity
                         key={index}
                         onPress={() => navigation.navigate('Details', { itemId: index })}
                     >
-                        <View style={{ padding: 10 }}>
+                        <View style={{ padding: 15 }}>
                             <View style={{
                                 width: '100%',
                                 height: 300,
-                                marginBottom: 20,
-                                position: 'relative',
+                                // marginBottom: 20,
+                                // position: 'relative',
                             }}>
                                 <Image
                                     style={{
                                         width: '100%',
                                         height: '100%',
-                                        borderRadius: 10,
+                                        borderRadius: 5,
                                     }}
                                     source={item.image}
                                     resizeMode="cover"
@@ -76,7 +76,7 @@ export default function AddProductScreen() {
                                     </Text>
                                 </Box>
                             </View>
-                            <Text fontWeight="bold" fontSize={18} color="#000">
+                            <Text fontWeight="bold" fontSize={18} color="#000" top={8}>
                                 {item.description}
                             </Text>
                         </View>
