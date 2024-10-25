@@ -359,7 +359,7 @@ export default function AddProductSecondScreen() {
                     </View>
                     <View marginTop={hp(4)}>
                         <Dropdown
-                            style={{ backgroundColor: '#dae1e5', borderRadius: 5,height:hp(7),padding:10 }} 
+                            style={{ backgroundColor: '#dae1e5', borderRadius: 10,height:hp(7),padding:10 }} 
                             borderRadius={5} height={hp(7)} padding={10}
                             itemTextStyle={{ color: '#000' }}
                             placeholderStyle={{ color: "#000", fontSize: wp(4) }}
