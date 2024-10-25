@@ -25,7 +25,7 @@ export default function ProductDetailsScreen() {
                 <View>
                     <View flex={1} position='relative'>
                         <TouchableOpacity
-                            onPress={() => { () => navigation.navigate('AllProduct') }}
+                            onPress={() => navigation.navigate('AllProduct') }
                             style={{
                                 position: 'absolute',
                                 top: hp(2),
