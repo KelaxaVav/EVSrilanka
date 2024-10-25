@@ -1,25 +1,25 @@
 import React, { useState } from 'react'
-import {  Button, ButtonText, Input, InputField, SafeAreaView, Text, View } from '@gluestack-ui/themed'
+import { Button, ButtonText, Input, InputField, SafeAreaView, Text, View } from '@gluestack-ui/themed'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faAdd, faChevronLeft, } from '@fortawesome/free-solid-svg-icons';
-import {  Animated, PanResponder, ScrollView, TouchableOpacity } from 'react-native';
+import { Animated, PanResponder, ScrollView, TouchableOpacity } from 'react-native';
 import { TrashIcon } from 'react-native-heroicons/outline'
 import { Dropdown } from 'react-native-element-dropdown';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
-import {  useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { setProduct } from '../redux/slice/product';
 import CustomSnackbar from '../components/custom';
 
 export default function AddProductSecondScreen() {
     const navigation = useNavigation();
     const [benefitInputFields, setBenefitInputFields] = useState(['']);
-    
+
     const [additionalDetailsInputFields, setAdditionalDetailsInputFields] = useState([{ attribute: '', value: '' }]);
     const [isBenefitDeleteIconVisible, setBenefitDeleteIconVisible] = useState(Array(benefitInputFields.length).fill(false));
     const [isAdditionalDeleteIconVisible, setAddionalDeleteIconVisible] = useState(Array(additionalDetailsInputFields.length).fill(false));
-    const {handleSubmit } = useForm();
+    const { handleSubmit } = useForm();
     const dispatch = useDispatch();
 
     const [snackbarVisible, setSnackbarVisible] = useState(false);
@@ -88,7 +88,7 @@ export default function AddProductSecondScreen() {
         const filledAdditionalDetails = additionalDetailsInputFields.filter(
             field => field.attribute.trim() !== '' && field.value.trim() !== ''
         );
-        if (filledBenefits.length ===0 ) {
+        if (filledBenefits.length === 0) {
             setSnackbarVisible(true);
             setSnackbarMessage('Please provide at least one benefit');
             return;
@@ -101,12 +101,12 @@ export default function AddProductSecondScreen() {
 
         const allProductData = {
             name: productData.name,
-            description:productData.description,
-            price:productData.price,
-            images:productData.images,
-            benefits:filledBenefits,
-            additional:filledAdditionalDetails,
-            category:selectedCategory
+            description: productData.description,
+            price: productData.price,
+            images: productData.images,
+            benefits: filledBenefits,
+            additional: filledAdditionalDetails,
+            category: selectedCategory
         };
         dispatch(setProduct(allProductData));
         navigation.navigate('AllProduct');
@@ -117,13 +117,13 @@ export default function AddProductSecondScreen() {
                 <View paddingLeft={wp(5)} paddingRight={wp(5)}>
                     <TouchableOpacity onPress={() => navigation.navigate('AddProduct')}>
                         <View flexDirection='row' alignItems='center'>
-                            <View 
-                                padding= {wp(2)}
-                                borderRadius= {50}
-                                backgroundColor= '#dae1e5'
-                                justifyContent= 'center'
-                                alignItems= 'center'
-                                aspectRatio= {1}
+                            <View
+                                padding={wp(2)}
+                                borderRadius={50}
+                                backgroundColor='#dae1e5'
+                                justifyContent='center'
+                                alignItems='center'
+                                aspectRatio={1}
                             >
                                 <FontAwesomeIcon icon={faChevronLeft} color="#000" size={wp(5)} />
                             </View>
@@ -133,10 +133,10 @@ export default function AddProductSecondScreen() {
                                 <Text color='#000' fontSize={wp(5)} textAlign='center'>Details</Text>
                             </View>
 
-                            <View 
-                                padding= {wp(4)}
-                                borderRadius= {50}
-                                aspectRatio= {1}
+                            <View
+                                padding={wp(4)}
+                                borderRadius={50}
+                                aspectRatio={1}
                             />
                         </View>
 
@@ -145,12 +145,12 @@ export default function AddProductSecondScreen() {
 
                     <View marginTop={hp(5)}>
                         <View>
-                            <View flexDirection= "row" justifyContent= "space-between" alignItems= 'center'>
-                                <Text color= '#000' fontSize= {wp(5)} fontWeight= '500'>Benefits</Text>
+                            <View flexDirection="row" justifyContent="space-between" alignItems='center'>
+                                <Text color='#000' fontSize={wp(5)} fontWeight='500'>Benefits</Text>
                                 <TouchableOpacity onPress={handleBenefitsAddField}>
-                                    <View flexDirection= "row" alignItems= 'center'>
+                                    <View flexDirection="row" alignItems='center'>
                                         <FontAwesomeIcon icon={faAdd} color="#68a2e3" size={wp(4)} />
-                                        <Text color= '#68a2e3' fontSize={ wp(5)} fontWeight= '500' marginLeft= {5}>Add</Text>
+                                        <Text color='#68a2e3' fontSize={wp(5)} fontWeight='500' marginLeft={5}>Add</Text>
                                     </View>
 
                                 </TouchableOpacity>
@@ -186,7 +186,7 @@ export default function AddProductSecondScreen() {
                                     });
 
                                     return (
-                                        <View key={`benefit-${index}`} flexDirection= 'row' alignItems= 'center' marginTop= {hp(2)}>
+                                        <View key={`benefit-${index}`} style={{ flexDirection: 'row', alignItems: 'center', marginTop: hp(2) }}>
                                             <Animated.View
                                                 style={{ flex: 1, transform: [{ translateX: pan.x }] }}
                                                 {...panResponder.panHandlers}
@@ -210,53 +210,47 @@ export default function AddProductSecondScreen() {
                                                         borderWidth={0}
                                                         borderRadius={10}
                                                         height={hp(7)}
-                                                        value={benefitInputFields[index] || ""} 
+                                                        value={benefitInputFields[index] || ""}
                                                         onChangeText={(value) => handleBenefitChange(value, index)}
                                                         paddingRight={wp(10)}
                                                     />
-                                                    {isBenefitDeleteIconVisible[index] && (
-                                                        <View backgroundColor= '#e74c3c' >
-                                                            <TouchableOpacity
-                                                                onPress={() => handleBenefitDeleteField(index)}
-                                                                
-                                                                    height= {hp(7)}
-                                                                    width={ wp(15)}
-                                                                    position= 'absolute'
-                                                                    right= {0}
-                                                                    top='50%'
-                                                                    transform= {[{ translateY: -hp(7) }]}
-                                                                    backgroundColor= '#e74c3c'
-                                                                    borderRadius= {5}
-                                                                    padding={ 10}
-                                                                    justifyContent= 'center'
-                                                                    alignItems= 'center'
-                                                                
-                                                            >
-                                                                <TrashIcon size={hp(3)} color="#fff" />
-                                                            </TouchableOpacity>
-
-                                                        </View>
-                                                    )}
                                                 </Input>
                                             </Animated.View>
+
+                                            {isBenefitDeleteIconVisible[index] && (
+                                                <View style={{ backgroundColor: '#e74c3c', height: hp(7), width: wp(15), borderRadius: 5, justifyContent: 'center', alignItems: 'center' }}>
+                                                    <TouchableOpacity
+                                                        onPress={() => handleBenefitDeleteField(index)}
+                                                        style={{
+                                                            height: hp(7),
+                                                            width: wp(15),
+                                                            justifyContent: 'center',
+                                                            alignItems: 'center'
+                                                        }}
+                                                    >
+                                                        <TrashIcon size={hp(3)} color="#fff" />
+                                                    </TouchableOpacity>
+                                                </View>
+                                            )}
                                         </View>
+
                                     );
                                 })}
                             </View>
                         </View>
 
                         <View marginTop={hp(4)}>
-                            <View flexDirection= "row" justifyContent= "space-between" alignItems= 'center'>
-                                <Text color= '#000' fontSize= {wp(5)} fontWeight= '500'>Additional Details</Text>
+                            <View flexDirection="row" justifyContent="space-between" alignItems='center'>
+                                <Text color='#000' fontSize={wp(5)} fontWeight='500'>Additional Details</Text>
                                 <TouchableOpacity onPress={handleAdditionalDetailsAddField}>
-                                    <View flexDirection= "row" alignItems= 'center' >
+                                    <View flexDirection="row" alignItems='center' >
                                         <FontAwesomeIcon icon={faAdd} color="#68a2e3" size={wp(4)} />
-                                        <Text color= '#68a2e3' fontSize= {wp(5)} fontWeight= '500' marginLeft= {5} >Add</Text>
+                                        <Text color='#68a2e3' fontSize={wp(5)} fontWeight='500' marginLeft={5} >Add</Text>
                                     </View>
 
                                 </TouchableOpacity>
                             </View>
-                            <View marginTop= {hp(2)}>
+                            <View marginTop={hp(2)}>
                                 {additionalDetailsInputFields.map((fieldValue, index) => {
                                     const pan = new Animated.ValueXY();
 
@@ -289,14 +283,14 @@ export default function AddProductSecondScreen() {
                                             style={{ flex: 1, transform: [{ translateX: pan.x }] }}
                                             {...panResponder.panHandlers}
                                         >
-                                            <View key={fieldValue.id} flexDirection= 'row' marginTop={ hp(2)} >
+                                            <View key={fieldValue.id} style={{ flexDirection: 'row', alignItems: 'center', marginTop: hp(2) }}>
                                                 <Input
                                                     variant="outline"
                                                     size="md"
                                                     isDisabled={false}
                                                     isInvalid={false}
                                                     isReadOnly={false}
-                                                    flex= {1} marginRight= {5}
+                                                    flex={1} marginRight={5}
                                                 >
                                                     <InputField
                                                         placeholder="Attribute"
@@ -313,12 +307,14 @@ export default function AddProductSecondScreen() {
                                                         onChangeText={(value) => handleAdditionalDetailsChange(value, index, 'attribute')}
                                                     />
                                                 </Input>
+
                                                 <Input
                                                     variant="outline"
                                                     size="md"
                                                     isDisabled={false}
                                                     isInvalid={false}
-                                                    isReadOnly={false}flex={1}
+                                                    isReadOnly={false}
+                                                    flex={1} marginRight={5}
                                                 >
                                                     <InputField
                                                         placeholder="Value"
@@ -334,40 +330,36 @@ export default function AddProductSecondScreen() {
                                                         value={fieldValue.value}
                                                         onChangeText={(value) => handleAdditionalDetailsChange(value, index, 'value')}
                                                     />
-                                                    {isAdditionalDeleteIconVisible[index] && (
-                                                        <View backgroundColor= '#e74c3c'>
-                                                            <TouchableOpacity
-                                                                onPress={() => handleAdditionalDeleteField(index)}
-                                                                    height= {hp(7)}
-                                                                    width= {wp(15)}
-                                                                    position='absolute'
-                                                                    right= {0}
-                                                                    top= '50%'
-                                                                    transform= {[{ translateY: -hp(7) }]}
-                                                                    backgroundColor= '#e74c3c'
-                                                                    borderRadius= {5}
-                                                                    padding= {10}
-                                                                    justifyContent= 'center'
-                                                                    alignItems= 'center'
-                                                                
-                                                            >
-                                                                <TrashIcon size={hp(3)} color="#fff" />
-                                                            </TouchableOpacity>
-                                                        </View>
-                                                    )}
                                                 </Input>
+
+                                                {isAdditionalDeleteIconVisible[index] && (
+                                                    <TouchableOpacity
+                                                        onPress={() => handleAdditionalDeleteField(index)}
+                                                        style={{
+                                                            backgroundColor: '#e74c3c',
+                                                            height: hp(7),
+                                                            width: wp(15),
+                                                            borderRadius: 5,
+                                                            justifyContent: 'center',
+                                                            alignItems: 'center'
+                                                        }}
+                                                    >
+                                                        <TrashIcon size={hp(3)} color="#fff" />
+                                                    </TouchableOpacity>
+                                                )}
                                             </View>
                                         </Animated.View>
                                     );
                                 })}
                             </View>
 
+
                         </View>
 
                     </View>
                     <View marginTop={hp(4)}>
                         <Dropdown
-                            backgroundColor= "#dae1e5" borderRadius={5} height= {hp(7)} padding= {10} 
+                            backgroundColor="#dae1e5" borderRadius={5} height={hp(7)} padding={10}
                             itemTextStyle={{ color: '#000' }}
                             placeholderStyle={{ color: "#000", fontSize: wp(4) }}
                             selectedTextStyle={{ color: "#000", fontSize: wp(4) }}
@@ -393,15 +385,15 @@ export default function AddProductSecondScreen() {
                     <View marginTop={hp(5)}>
                         <Button
                             onPress={handleSubmit(handleNext)}
-                                backgroundColor= '#68a2e3'
-                                marginTop= {20}
-                                padding= {hp(2)}
-                                borderRadius= {wp(2)}
-                                height={ hp(7)}
-                                justifyContent= 'center'
-                                alignItems= 'center'
-                           >
-                            <ButtonText textAlign= 'center' fontSize= {wp(4.5)} color= '#fff'>Next</ButtonText>
+                            backgroundColor='#68a2e3'
+                            marginTop={20}
+                            padding={hp(2)}
+                            borderRadius={wp(2)}
+                            height={hp(7)}
+                            justifyContent='center'
+                            alignItems='center'
+                        >
+                            <ButtonText textAlign='center' fontSize={wp(4.5)} color='#fff'>Next</ButtonText>
                         </Button>
                     </View>
                 </View>
