@@ -359,7 +359,8 @@ export default function AddProductSecondScreen() {
                     </View>
                     <View marginTop={hp(4)}>
                         <Dropdown
-                            backgroundColor="#dae1e5" borderRadius={5} height={hp(7)} padding={10}
+                            style={{ backgroundColor: '#dae1e5', borderRadius: 10,height:hp(7),padding:10 }} 
+                            borderRadius={5} height={hp(7)} padding={10}
                             itemTextStyle={{ color: '#000' }}
                             placeholderStyle={{ color: "#000", fontSize: wp(4) }}
                             selectedTextStyle={{ color: "#000", fontSize: wp(4) }}
@@ -367,6 +368,7 @@ export default function AddProductSecondScreen() {
                             iconStyle={{ width: wp(8), height: wp(8) }}
                             data={data}
                             search
+                            color
                             maxHeight={300}
                             labelField="label"
                             valueField="value"
